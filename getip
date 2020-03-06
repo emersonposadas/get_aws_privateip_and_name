@@ -7,6 +7,6 @@ ec2 = boto3.resource('ec2')
 for i in ec2.instances.all():
   for tag in i.tags:
     if tag['Key'] == 'Name':
-      match = re.match(sys.argv[1], tag['Value'])
+      match = re.search(sys.argv[1], tag['Value'], re.IGNORECASE)
       if match:
         print i.private_ip_address+","+tag['Value']
